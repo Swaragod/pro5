@@ -1,21 +1,6 @@
-import datetime
-from pathlib import Path
+from decorator import logger
+import os
 
-
-def logger(target_function):
-
-    def new_function(*args, **kwargs):
-
-        start_time = datetime.datetime.now()
-        result = target_function(*args, **kwargs)
-        log_info = f'{start_time} - {target_function.__name__}{args}_{kwargs} = {result}'
-
-        with open("logging.txt", 'a') as file:
-            file.write(log_info + '\n')
-
-        return result
-
-    return new_function
 
 @logger
 def summa(a, b):
@@ -33,18 +18,16 @@ def div(a, b):
     return res_
 
 
+if __name__ == '__main__':
 
-summa(100, 500)
-multi(200, 45)
-summa(500, 544400)
-summa(520, -53500)
-summa(0, 50330)
-div(563, 50)
+    summa(100, 500)
+    multi(200, 45)
+    summa(500, 544400)
+    summa(520, -53500)
+    summa(0, 50330)
+    div(563, 50)
 
-
-PA = 'home/projects/pyscripts/python/sample.md'
-PAA = Path.absolute(PA)
-print(PAA)
+print(os.getcwd())
 
 
 
