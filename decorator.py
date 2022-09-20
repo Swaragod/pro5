@@ -4,20 +4,23 @@ import os
 
 def new_path(log_path):
     def logger(original_function):
-        rr = input()
-
         def new_function(*args, **kwargs):
-            print(log_path)
+
+            if not os.path.isdir(log_path):
+                os.makedirs(log_path)
+
             start_time = datetime.now().strftime("%Y/%m/%d -%H:%M:%S")
             result = original_function(*args, **kwargs)
-            log_info = f'{start_time}   -   function:   {original_function.__name__}{args}_{kwargs}   -   result:    {result}'
+            log_info = f'{start_time}   -   function:   {original_function.__name__}' \
+                       f'{args}_{kwargs}   -   result:    {result}'
 
-            with open("logging.txt", 'a') as file:
+            full_path = os.path.join(log_path, "logs.txt")
+            with open(full_path, 'a') as file:
                 file.write(log_info + '\n')
-            print(rr)
-            return result
 
+            print(f'Лог функции: {original_function.__name__} сохранен в файле: {full_path}')
+            return result
 
         return new_function
 
-    return logger 
+    return logger

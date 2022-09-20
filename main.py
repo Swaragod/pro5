@@ -1,18 +1,19 @@
-from decorator import logger
-import os
+from decorator import new_path
 
 
-@logger
+@new_path('c:\\foo\\baz\\bar\\')
 def summa(a, b):
     res_ = a + b
     return res_
 
-@logger
+
+@new_path('Logs')
 def multi(a, b):
     res_ = a * b
     return res_
 
-@logger
+
+@new_path('Logs')
 def div(a, b):
     res_ = a / b
     return res_
@@ -27,7 +28,6 @@ if __name__ == '__main__':
     summa(0, 50330)
     div(563, 50)
 
-print(os.getcwd())
 
 
 
